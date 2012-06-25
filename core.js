@@ -210,4 +210,4 @@ window.CopyEdit = CopyEdit = {};
         CopyEdit.init();
     });
     
-}(window.jQuery));
+}(jQuery));

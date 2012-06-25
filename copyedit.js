@@ -11,14 +11,10 @@
     var script;
     var urlPrefix = 'http://copyedit.dev/';
     
-    // add jquery if not already present
-    if (typeof jQuery == 'undefined') {
-        script = document.createElement('script');
-        script.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
-        document.getElementsByTagName('head')[0].appendChild(script);
-    }
-    
-    jQuery.noConflict();
+    // add jquery (even if already present, we need a recent version)
+    script = document.createElement('script');
+    script.setAttribute('src', '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+    document.getElementsByTagName('head')[0].appendChild(script);
     
     // add jquery-getpath
     script = document.createElement('script');
