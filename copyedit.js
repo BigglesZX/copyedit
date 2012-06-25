@@ -18,12 +18,14 @@
         document.getElementsByTagName('head')[0].appendChild(script);
     }
     
+    jQuery.noConflict();
+    
     // add jquery-getpath
     script = document.createElement('script');
     script.setAttribute('src', urlPrefix + 'jquery-getpath.js');
     document.getElementsByTagName('head')[0].appendChild(script);
     
-    // add JSON2 (only older browsers will use it)
+    // add JSON2 (only for older browsers)
     if (typeof JSON == 'undefined') {
         script = document.createElement('script');
         script.setAttribute('src', urlPrefix + 'json2.js');
