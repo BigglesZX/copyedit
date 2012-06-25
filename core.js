@@ -145,9 +145,19 @@ window.CopyEdit = CopyEdit = {};
                     if ($(elem).html() != $(elem).data('originalContents')) {
                         // remove copyedit class to avoid contaminating path
                         $(elem).removeClass('copyedit-enabled');
+                        var path = $(elem).getPath().replace(/(\.$)/g, '');
+                        var idx = 0;
+                        if ($(path).length > 1) {
+                            // iterate matching elements to find this one and get its index
+                            $(path).each(function(pathI, pathElem) {
+                                if (pathElem == elem) {
+                                    idx = pathI;
+                                }
+                            });
+                        }
                         copyEdits.edits.push({
-                            path: $(elem).getPath().replace(/(\.$)/g, ''),
-                            idx: $(elem).index(),
+                            path: path,
+                            idx: idx,
                             oldContent: $(elem).data('originalContents'),
                             newContent: $(elem).html()
                         });
@@ -176,11 +186,11 @@ window.CopyEdit = CopyEdit = {};
                 fr.onload = function (e) {
                     var copyEdits = JSON.parse(e.target.result);
                     $.each(copyEdits.edits, function(i, elem) {
-                        $(elem.path, elem.idx).data('touched', true);
-                        $(elem.path, elem.idx).data('originalContents', $(elem.path, elem.idx).html());
+                        $(elem.path).eq(elem.idx).data('touched', true);
+                        $(elem.path).eq(elem.idx).data('originalContents', $(elem.path).eq(elem.idx).html());
                         
-                        $(elem.path, elem.idx).html(elem.newContent)
-                                              .css('border', CopyEdit.editedElementBorderCSS);
+                        $(elem.path).eq(elem.idx).html(elem.newContent)
+                                                 .css('border', CopyEdit.editedElementBorderCSS);
                     });
                     
                     alert("Loaded " + copyEdits.edits.length + " edit(s) from file.");
